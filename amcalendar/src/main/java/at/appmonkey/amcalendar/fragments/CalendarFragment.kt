@@ -201,7 +201,7 @@ class CalendarFragment : BottomSheetDialogFragment() {
                     adapter.rangeSelectionListener?.onRangeSelect(adapter.calSelection, adapter.calSelectionEnd)
                 }
                 adapter.notifyDataSetChanged()
-                disableSelect()
+            //    disableSelect()
             }
         }
     }
