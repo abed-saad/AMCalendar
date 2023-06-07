@@ -36,6 +36,7 @@ class CalendarFragment : BottomSheetDialogFragment() {
     private var monthElements: ArrayList<MonthElement> = arrayListOf()
     var singleSelectionListener: SingleSelectionListener? = null
     var rangeSelectionListener: RangeSelectionListener? = null
+    var isSelectAlwaysAllowed = false
 
     @SuppressLint("InflateParams", "NotifyDataSetChanged")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -201,7 +202,8 @@ class CalendarFragment : BottomSheetDialogFragment() {
                     adapter.rangeSelectionListener?.onRangeSelect(adapter.calSelection, adapter.calSelectionEnd)
                 }
                 adapter.notifyDataSetChanged()
-            //    disableSelect()
+                if(!isSelectAlwaysAllowed)
+                    disableSelect()
             }
         }
     }

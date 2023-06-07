@@ -14,19 +14,22 @@ class AMCalendar {
     companion object {
 
         fun singleSelect(activity: FragmentActivity,
-                         singleSelectionListener: SingleSelectionListener): SingleAMCalendar {
-            return SingleAMCalendar(activity.supportFragmentManager, singleSelectionListener)
+                         singleSelectionListener: SingleSelectionListener,
+                         isSelectAlwaysAllowed: Boolean = false): SingleAMCalendar {
+            return SingleAMCalendar(activity.supportFragmentManager, singleSelectionListener, isSelectAlwaysAllowed)
         }
 
         fun rangeSelect(activity: FragmentActivity,
-                        rangeSelectionListener: RangeSelectionListener) : RangeAMCalendar {
-            return RangeAMCalendar(activity.supportFragmentManager, rangeSelectionListener)
+                        rangeSelectionListener: RangeSelectionListener,
+                        isSelectAlwaysAllowed: Boolean = false) : RangeAMCalendar {
+            return RangeAMCalendar(activity.supportFragmentManager, rangeSelectionListener, isSelectAlwaysAllowed)
         }
 
     }
 
     class SingleAMCalendar(private val fragmentManager: FragmentManager,
-                           singleSelectionListener: SingleSelectionListener) {
+                           singleSelectionListener: SingleSelectionListener,
+                           private val isSelectAlwaysAllowed: Boolean = false) {
 
         private var singleSelectionListener: SingleSelectionListener? = null
 
@@ -49,6 +52,7 @@ class AMCalendar {
 
         fun show() {
             val calendarFragment = CalendarFragment()
+            calendarFragment.isSelectAlwaysAllowed = isSelectAlwaysAllowed
             calendarFragment.singleSelectionListener = singleSelectionListener
             calendarFragment.rangeSelectionListener = null
             val bundle = Bundle()
@@ -64,7 +68,8 @@ class AMCalendar {
     }
 
     class RangeAMCalendar(private val fragmentManager: FragmentManager,
-                          rangeSelectionListener: RangeSelectionListener) {
+                          rangeSelectionListener: RangeSelectionListener,
+                          private val isSelectAlwaysAllowed: Boolean = false) {
 
         private var rangeSelectionListener: RangeSelectionListener? = null
 
@@ -89,6 +94,7 @@ class AMCalendar {
 
         fun show() {
             val calendarFragment = CalendarFragment()
+            calendarFragment.isSelectAlwaysAllowed = isSelectAlwaysAllowed
             calendarFragment.singleSelectionListener = null
             calendarFragment.rangeSelectionListener = rangeSelectionListener
             val bundle = Bundle()
